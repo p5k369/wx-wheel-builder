@@ -20,8 +20,9 @@ jobs:
          - "3.8"
          - "3.9"
         platform:
-         - "ubuntu-18.04"
-         - "ubuntu-20.04"
+         - "ubuntu-16.04"
+#         - "ubuntu-18.04"
+#         - "ubuntu-20.04"
         wx-version:
          - "4.0.7.post2"
          - "4.1.0"
@@ -45,7 +46,7 @@ jobs:
         run: "python -m pip wheel --no-deps wxPython --wheel-dir ./wheels --verbose"
 
 
-      - name: "Upload Coverage"
+      - name: "Upload Artefacts"
         uses: actions/upload-artifact@v2
         with:
           name: "wxPython-${{ matrix.wx-version }}-py${{ matrix.python-version }}-${{ matrix.platform }}"
