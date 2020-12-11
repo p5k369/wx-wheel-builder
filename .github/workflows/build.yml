@@ -35,7 +35,7 @@ jobs:
           python -VV
           python -m site
           python -m pip install --upgrade pip setuptools wheel
-          apt install libgtk3-dev libwebkit2gtk-dev
+          sudo apt install libgtk3-dev libwebkit2gtk-dev
 
       - name: "Build Wheel"
         run: "python -m pip wheel wxPython --wheel-dir ./wheels"
