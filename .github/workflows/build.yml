@@ -1,0 +1,47 @@
+---
+name: Linux Build
+
+on:
+  push:
+
+jobs:
+  build:
+    name: "Python ${{ matrix.python-version }}"
+    runs-on: ${{ matrix.platform }}
+    env:
+      USING_COVERAGE: '3.6,3.7,3.8,3.9'
+
+    strategy:
+      fail-fast: False
+      matrix:
+        python-version:
+         - "3.6"
+         - "3.7"
+         - "3.8"
+         - "3.9"
+        platform:
+         - "ubuntu-18.04"
+         - "ubuntu-20.04"
+
+    steps:
+
+      - name: Setup Python 🐍
+        uses: "actions/setup-python@v2"
+        with:
+          python-version: "${{ matrix.python-version }}"
+
+      - name: Install dependencies 🔧
+        run: |
+          python -VV
+          python -m site
+          python -m pip install --upgrade pip setuptools wheel
+
+      - name: "Build Wheel"
+        run: "python -m pip wheel wxPython --no-binary --wheel-dir ./wheels"
+
+
+      - name: "Upload Coverage"
+        uses: actions/upload-artifact@v2
+        with:
+          name: "wxPython-${{ matrix.python-version }}-${{ matrix.platform }}"
+          path: ./wheels/*.whl
