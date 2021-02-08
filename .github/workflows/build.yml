@@ -2,7 +2,7 @@
 name: Linux Build
 
 on:
-  push:
+  push: ["master"]
 
 jobs:
   build:
